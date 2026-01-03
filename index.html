@@ -3,227 +3,228 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday 🤍</title>
+  <title>A little birthday card 🎂</title>
 
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: #ffeaf3;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    body {
+      background: #fff;
       color: #444;
-      text-align: center;
+      overflow-x: hidden;
     }
 
-    /* ===== HOME ===== */
+    /* ================= HERO / HEADLINE ================= */
     .hero {
-      position: relative;
-      width: 100%;
       height: 100vh;
-      overflow: hidden;
-    }
-
-    .hero img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      background: url('hero.png') center/cover no-repeat;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 24px;
     }
 
     .hero-text {
-      position: absolute;
-      top: 18%;
-      left: 8%;
       max-width: 80%;
-      color: white;
-      text-align: left;
     }
 
     .hero-text h1 {
-      font-size: 24px;
-      line-height: 1.4;
-      text-shadow: 0 4px 10px rgba(0,0,0,.4);
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.3;
     }
 
-    .icons {
-      position: absolute;
-      bottom: 30px;
-      width: 100%;
+    .hero-text p {
+      margin-top: 12px;
+      font-size: 15px;
+      opacity: 0.9;
+    }
+
+    /* ================= ICON CARD ================= */
+    .icon-card {
+      margin-top: -60px;
+      background: #fff;
+      border-radius: 24px 24px 0 0;
+      padding: 28px 20px 40px;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.08);
+    }
+
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      text-align: center;
+    }
+
+    .icon-btn {
       display: flex;
-      justify-content: center;
-      gap: 25px;
-    }
-
-    .icons img {
-      width: 48px;
-      cursor: pointer;
-      transition: transform .2s;
-    }
-
-    .icons img:hover {
-      transform: scale(1.1);
-    }
-
-    /* ===== FULLSCREEN PAGES ===== */
-    .page {
-      position: fixed;
-      inset: 0;
-      background: #ffeaf3;
-      display: none;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      z-index: 10;
-      padding: 20px;
+      gap: 8px;
+      cursor: pointer;
     }
 
-    .page.active {
+    .icon-btn img {
+      width: 48px;
+      height: 48px;
+    }
+
+    .icon-btn span {
+      font-size: 12px;
+    }
+
+    /* ================= OVERLAY PAGE ================= */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+      padding: 24px;
+    }
+
+    .overlay.active {
       display: flex;
     }
 
-    .back {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      cursor: pointer;
+    .back-btn {
       font-size: 14px;
-      opacity: .7;
+      margin-bottom: 20px;
+      cursor: pointer;
+      opacity: 0.7;
     }
 
-    /* ===== MUSIC PAGE ===== */
-    .music-cover {
+    /* ================= MUSIC PAGE ================= */
+    .music-page {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 20px;
+    }
+
+    .music-page img {
       width: 220px;
-      border-radius: 18px;
-      box-shadow: 0 10px 25px rgba(0,0,0,.2);
+      border-radius: 16px;
     }
 
     .spotify-btn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: #1DB954;
-      color: white;
       text-decoration: none;
+      padding: 10px 20px;
       border-radius: 20px;
+      background: #1db954;
+      color: white;
       font-size: 14px;
     }
 
-    /* ===== POLAROID ===== */
-    .polaroid-wrapper {
-      position: relative;
-      width: 260px;
-      height: 320px;
+    /* ================= MEMORIES ================= */
+    .memories {
+      align-items: center;
+      justify-content: center;
     }
 
     .polaroid {
-      position: absolute;
-      inset: 0;
-      background: white;
-      border-radius: 10px;
-      padding: 10px 10px 30px;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+      width: 240px;
+      background: #fff;
+      padding: 10px 10px 24px;
+      border-radius: 6px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
       cursor: pointer;
-      transition: transform 0.5s ease, opacity 0.4s;
     }
 
     .polaroid img {
       width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-radius: 6px;
+      display: block;
     }
-
-    .polaroid:nth-child(1) { transform: rotate(-2deg); }
-    .polaroid:nth-child(2) { transform: rotate(2deg); }
-    .polaroid:nth-child(3) { transform: rotate(-1deg); }
-    .polaroid:nth-child(4) { transform: rotate(1deg); }
   </style>
 </head>
-
 <body>
 
-  <!-- HOME -->
-  <div class="hero">
-    <img src="hero.png" />
+  <!-- ================= HERO ================= -->
+  <section class="hero">
     <div class="hero-text">
-      <h1>
-        Happy birthday, love!<br>
-        Made this especially for you,<br>
-        January 1st’s own special one ✧
-      </h1>
+      <h1>Happy Birthday 🤍</h1>
+      <p>This is a small place where some memories live.</p>
     </div>
+  </section>
 
-    <div class="icons">
-      <img src="icons/music.png" onclick="openMusic()">
-      <img src="icons/camera.png" onclick="openMemory()">
-      <img src="icons/game.png">
-      <img src="icons/letter.png">
+  <!-- ================= ICON CARD ================= -->
+  <section class="icon-card">
+    <div class="icon-grid">
+      <div class="icon-btn" onclick="openMusic()">
+        <img src="icons/music.png">
+        <span>Music</span>
+      </div>
+      <div class="icon-btn" onclick="openMemories()">
+        <img src="icons/camera.png">
+        <span>Memories</span>
+      </div>
+      <div class="icon-btn">
+        <img src="icons/game.png">
+        <span>Game</span>
+      </div>
+      <div class="icon-btn">
+        <img src="icons/letter.png">
+        <span>Letter</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MUSIC OVERLAY ================= -->
+  <div class="overlay" id="musicOverlay">
+    <div class="back-btn" onclick="closeMusic()">← back</div>
+    <div class="music-page">
+      <img src="playlist.png">
+      <a class="spotify-btn" href="https://open.spotify.com/playlist/17dKleqnuTkZF7s98xoEVy?si=4d5a0d0e36924f30" target="_blank">
+        Open Spotify Playlist
+      </a>
     </div>
   </div>
 
-  <!-- MUSIC PAGE -->
-  <div id="musicPage" class="page">
-    <div class="back" onclick="closeMusic()">← back</div>
-    <img src="playlist.png" class="music-cover">
-    <a class="spotify-btn"
-       href="https://open.spotify.com/playlist/17dKleqnuTkZF7s98xoEVy?si=4d5a0d0e36924f30"
-       target="_blank">
-       Open Playlist 🎧
-    </a>
-  </div>
-
-  <!-- MEMORY PAGE -->
-  <div id="memoryPage" class="page">
-    <div class="back" onclick="closeMemory()">← back</div>
-
-    <div class="polaroid-wrapper" onclick="nextPhoto()">
-      <div class="polaroid"><img src="photos/1.png"></div>
-      <div class="polaroid"><img src="photos/2.png"></div>
-      <div class="polaroid"><img src="photos/3.png"></div>
-      <div class="polaroid"><img src="photos/4.png"></div>
-      <div class="polaroid"><img src="photos/5.png"></div>
-      <div class="polaroid"><img src="photos/6.png"></div>
-      <div class="polaroid"><img src="photos/7.png"></div>
-      <div class="polaroid"><img src="photos/8.png"></div>
-      <div class="polaroid"><img src="photos/10.png"></div>
-      <div class="polaroid"><img src="photos/9.png"></div>
+  <!-- ================= MEMORIES OVERLAY ================= -->
+  <div class="overlay memories" id="memoriesOverlay">
+    <div class="back-btn" onclick="closeMemories()">← back</div>
+    <div class="polaroid" onclick="nextPhoto()">
+      <img id="memoryImage" src="photos/1.png">
     </div>
-
-    <p style="font-size:12px;opacity:.7;margin-top:12px">
-      tap the photo 🤍
-    </p>
   </div>
 
-  <!-- AUDIO -->
+  <!-- ================= AUDIO ================= -->
   <audio id="bgm" src="bgm.mp3" loop></audio>
 
-  <!-- SCRIPT -->
   <script>
-    const bgm = document.getElementById("bgm");
+    const bgm = document.getElementById('bgm');
 
     function openMusic() {
-      document.getElementById("musicPage").classList.add("active");
+      document.getElementById('musicOverlay').classList.add('active');
       bgm.play();
     }
 
     function closeMusic() {
-      document.getElementById("musicPage").classList.remove("active");
+      document.getElementById('musicOverlay').classList.remove('active');
     }
 
-    function openMemory() {
-      document.getElementById("memoryPage").classList.add("active");
+    let photos = [1,2,3,4,5,6,7,8,10,9];
+    let index = 0;
+
+    function openMemories() {
+      document.getElementById('memoriesOverlay').classList.add('active');
+      index = 0;
+      document.getElementById('memoryImage').src = `photos/${photos[index]}.png`;
     }
 
-    function closeMemory() {
-      document.getElementById("memoryPage").classList.remove("active");
+    function closeMemories() {
+      document.getElementById('memoriesOverlay').classList.remove('active');
     }
 
     function nextPhoto() {
-      const wrapper = document.querySelector(".polaroid-wrapper");
-      const first = wrapper.firstElementChild;
-      first.style.opacity = "0";
-
-      setTimeout(() => {
-        first.style.opacity = "1";
-        wrapper.appendChild(first);
-      }, 300);
+      index = (index + 1) % photos.length;
+      document.getElementById('memoryImage').src = `photos/${photos[index]}.png`;
     }
   </script>
 
