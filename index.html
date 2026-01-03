@@ -17,7 +17,7 @@ body{
 /* ===== HERO ===== */
 .hero{
   height:100vh;
-  background:url("hero.png") center/cover no-repeat;
+  background:url("hero.jpg") center/cover no-repeat;
   position:relative;
 }
 .hero-overlay{
@@ -176,20 +176,23 @@ body{
   </div>
 </div>
 
-<!-- MUSIC PAGE -->
+<!-- ===== MUSIC PAGE ===== -->
 <div id="musicPage" class="page">
   <div class="back" onclick="closePage()">← back</div>
-  <div class="music-box">
-    <img src="playlist.png">
-    <a href="https://open.spotify.com/playlist/17dKleqnuTkZF7s98xoEVy?si=4d5a0d0e36924f30" target="_blank">
-      open playlist 🎧
-    </a>
-  </div>
+
+  <img src="playlist.png" class="music-cover">
+
+  <a class="spotify-btn"
+     href="https://open.spotify.com/playlist/17dKleqnuTkZF7s98xoEVy?si=4d5a0d0e36924f30"
+     target="_blank">
+     Open Playlist 🎧
+  </a>
 </div>
 
-<!-- MEMORIES PAGE -->
+<!-- ===== MEMORIES PAGE ===== -->
 <div id="memoriesPage" class="page">
   <div class="back" onclick="closePage()">← back</div>
+
   <div class="polaroid-wrapper" onclick="nextPhoto()">
     <div class="polaroid"><img src="photos/1.png"></div>
     <div class="polaroid"><img src="photos/2.png"></div>
@@ -202,6 +205,10 @@ body{
     <div class="polaroid"><img src="photos/10.png"></div>
     <div class="polaroid"><img src="photos/9.png"></div>
   </div>
+
+  <p style="margin-top:14px;font-size:12px;opacity:.7">
+    tap the photo 🤍
+  </p>
 </div>
 
 <audio id="bgm" src="bgm.mp3" loop></audio>
