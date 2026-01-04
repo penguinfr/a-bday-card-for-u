@@ -183,21 +183,42 @@ body{
 /* ===== FINISH CARD ===== */
 .finish-card{
   display:none;
+  position:absolute;
+  inset:0;
+  background:rgba(255,245,248,.92);
+  z-index:150;
+
+  display:flex;
   flex-direction:column;
   align-items:center;
-  background:#ffe6ef;
-  padding:20px;
-  border-radius:18px;
-  box-shadow:0 15px 30px rgba(0,0,0,.2);
-  margin-top:20px;
-  max-width:260px;
-  text-align:center;
-}
+  justify-content:center;
 
+  padding:20px;
+}
 .finish-card img{
   width:100%;
   border-radius:12px;
   margin-bottom:12px;
+}
+.finish-inner{
+  background:#ffeaf2;
+  padding:18px;
+  border-radius:16px;
+  box-shadow:0 15px 35px rgba(255,182,193,.6);
+  max-width:260px;
+  text-align:center;
+}
+
+.finish-inner img{
+  width:100%;
+  border-radius:12px;
+  margin-bottom:12px;
+}
+
+.finish-inner p{
+  font-size:13px;
+  line-height:1.5;
+  white-space:pre-line;
 }
 
 /* ===== BUBBLE ===== */
@@ -209,6 +230,8 @@ body{
   background:rgba(255,255,255,.6);
   border-radius:50%;
   animation:rise 4s linear forwards;
+  z-index:200; /* kunci */
+  box-shadow:0 0 12px rgba(255,182,193,.8);
 }
 
 @keyframes rise{
@@ -302,6 +325,7 @@ body{
 
   <!-- FINISH CARD -->
   <div id="finishCard" class="finish-card">
+  <div class="finish-inner">
     <img src="finish/finish.png">
     <p id="finishText"></p>
   </div>
@@ -392,6 +416,7 @@ function shuffle(arr){
 
 /* ===== FINISH ===== */
 function finishGame(){
+  document.getElementById("gameGrid").style.display="none";
   document.getElementById("finishCard").style.display="flex";
   startTyping();
   launchBubbles(10);
