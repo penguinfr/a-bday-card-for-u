@@ -204,6 +204,20 @@ body{
   max-width:260px;
   text-align:center;
 }
+.finish-back{
+  margin-top:14px;
+  padding:8px 18px;
+  border:none;
+  border-radius:999px;
+  background:#ffd6e3;
+  color:#444;
+  font-size:13px;
+  cursor:pointer;
+  box-shadow:0 6px 15px rgba(0,0,0,.15);
+}
+.finish-back:hover{
+  transform:translateY(-1px);
+}
 
 /* ===== BUBBLE ===== */
 .bubble{
@@ -312,7 +326,9 @@ body{
   <div class="finish-inner">
     <img src="finish/finish.png">
     <p id="finishText"></p>
-  </div>
+
+  <button class="finish-back" onclick="closePage()">← back</button>
+</div>
 </div>
 
 <audio id="popSound" src="game/pop.mp3"></audio>
@@ -429,11 +445,11 @@ function finishGame(){
   document.getElementById("finishCard").style.display="flex";
   document.getElementById("gameBack").style.display="none";
   startTyping();
-  launchBubbles(10);
+  launchBubbles(30);
 }
 
 function startTyping(){
-  const text="yay! you matched everything ♡\ngreat job owiiy ^•-•^";
+  const text="yeay! you matched everything ♡\ngreat job owiiy ^•-•^";
   const el=document.getElementById("finishText");
   let i=0;
   const t=setInterval(()=>{
