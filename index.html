@@ -259,12 +259,13 @@ body{
 
 .letter-paper{
   position:relative;
-  background:#ffdce7;
+  background:#ffd0df;
   width:320px;
+  max-height:75vh;
   padding:28px 22px;
   box-shadow:0 18px 40px rgba(0,0,0,.25);
+  overflow-y:auto;
   display:none;
-  z-index:10;
 }
 
 .letter-paper h2{
@@ -293,9 +294,9 @@ body{
 .letter-flower{
   position:absolute;
   right:-40px;
-  top:20px;
-  width:110px;
-  transform:rotate(-8deg);
+  bottom:-30px;
+  width:120px;
+  transform:rotate(-12deg);
 }
 
 </style>
@@ -414,7 +415,7 @@ body{
 
     <p>Semoga di usia baru ini, kamu selalu dikelilingi hal-hal baik. semoga kamu lebih sering ketawa, semoga langkahmu dimudahkan, hatimu dijaga, dan setiap harimu diisi dengan hal-hal yang bikin kamu happyy. I hope life treats you gently, the way you deserve.</p>
 
-    <p>I hope you remember that you’re not alone. Kamu punya banyak orang-orang yang sayang sama kamu, karena kamu selalu buat orang lebih banyak tersenyum tiap harinyaa.</p>
+    <p>Always remember that you’re not alone. Kamu punya banyak bangett orang yang sayang sama kamu, karena kamu selalu buat orang lain lebih banyak tersenyum tiap harinyaa.</p>
 
     <p>it's just a small gift, but full of love<br>
     stay kind, stay positife, n stay with me :]</p>
@@ -576,10 +577,10 @@ function launchBubbles(n){
       // POP PAS PECAH
       setTimeout(()=>{
         const pop = document.getElementById("popSound").cloneNode();
-        pop.volume = 0.6;
+        pop.volume = 0.7;
         pop.play();
         b.remove();
-      }, duration * 1000);
+      }, duration * 1000)- 200);
 
     }, delay);
   }
@@ -587,17 +588,44 @@ function launchBubbles(n){
 function openLetter(){
   const paper = document.getElementById("letterPaper");
   const envelope = document.querySelector(".letter-envelope");
-
-  envelope.style.display = "none";   
-  paper.style.display = "block";
-  paper.classList.add("show");
-
   const paragraphs = paper.querySelectorAll("p");
-  paragraphs.forEach((p,i)=>{
-    setTimeout(()=>{
-      p.style.opacity = 1;
-    }, i * 700);
-  });
+
+  envelope.style.display = "none";
+  paper.style.display = "block";
+
+  paragraphs.forEach(p => p.textContent = "");
+
+  const texts = [
+    "Maaf ya, aku nggak ucapin di tanggal 1, memang sengajaa hehe. akuu nggak lupaa kokk, nggak akan lupaa jugaa. the whole world was celebrating you that day ⟡",
+    "aku cuma mau bilang makasih. terima kasiiyy so maacc sudah selalu hadir di hari-hariku dari kurleb 6 tahun lalu. thank uu for every laugh, every small moment, every random chit chat, that really means a lot to me.",
+    "Semoga di usia baru ini, kamu selalu dikelilingi hal-hal baik. semoga kamu lebih sering ketawa, semoga langkahmu dimudahkan, hatimu dijaga, dan setiap harimu diisi dengan hal-hal yang bikin kamu happyy. I hope life treats you gently, the way you deserve.",
+    "Always remember that you’re not alone. Kamu punya banyak bangett orang yang sayang sama kamu, karena kamu selalu buat orang lain lebih banyak tersenyum tiap harinyaa.",
+    "it's just a small gift, but full of love\nstay kind, stay positife, n stay with me :]",
+    "always cheering for u,\npingu 𖹭"
+  ];
+
+  let pIndex = 0;
+
+  function typeParagraph(){
+    if(pIndex >= texts.length) return;
+
+    let charIndex = 0;
+    const text = texts[pIndex];
+    const p = paragraphs[pIndex];
+    p.style.opacity = 1;
+
+    const typing = setInterval(()=>{
+      p.textContent += text[charIndex];
+      charIndex++;
+      if(charIndex >= text.length){
+        clearInterval(typing);
+        pIndex++;
+        setTimeout(typeParagraph, 400); // jeda antar paragraf
+      }
+    }, 25); // kecepatan ketik
+  }
+
+  typeParagraph();
 }
 </script>
 
