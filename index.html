@@ -297,6 +297,7 @@ body{
   bottom:-30px;
   width:120px;
   transform:rotate(-12deg);
+  pointer-events:none;
 }
 
 </style>
@@ -580,7 +581,7 @@ function launchBubbles(n){
         pop.volume = 0.7;
         pop.play();
         b.remove();
-      }, duration * 1000)- 200);
+      }, duration * 1000- 200);
 
     }, delay);
   }
@@ -592,6 +593,7 @@ function openLetter(){
 
   envelope.style.display = "none";
   paper.style.display = "block";
+  paper.classList.add("show");
 
   paragraphs.forEach(p => p.textContent = "");
 
