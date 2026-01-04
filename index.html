@@ -322,12 +322,16 @@ function openPage(id){
 function closePage(){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
 }
+function openGame(){
+  openPage('gamePage');
+}
+
+/* ===== MEMORIES ===== */
 function nextPhoto(){
   const w=document.querySelector(".polaroid-wrapper");
   w.appendChild(w.firstElementChild);
 }
 /* ===== GAME LOGIC ===== */
-<script>
 const icons = [
   "game/1.png","game/2.png","game/3.png",
   "game/4.png","game/5.png","game/6.png"
