@@ -303,7 +303,7 @@ body{
 
 <!-- ===== GAME PAGE ===== -->
 <div id="gamePage" class="page">
-  <div class="back" onclick="closePage()">← back</div>
+  <div class="back" id="gameBack" onclick="closePage()">← back</div>
 
   <div class="game-grid" id="gameGrid"></div>
 
@@ -329,6 +329,7 @@ function openPage(id){
 }
 function closePage(){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("gameBack").style.display = "block";
 }
 function openGame(){
   document.getElementById("gamePage").classList.add("active");
@@ -425,8 +426,8 @@ function shuffle(arr){
 
 /* ===== FINISH ===== */
 function finishGame(){
-  document.getElementById("gameGrid").style.display="none";
   document.getElementById("finishCard").style.display="flex";
+  document.getElementById("gameBack").style.display="none";
   startTyping();
   launchBubbles(10);
 }
@@ -445,17 +446,35 @@ function startTyping(){
 /* ===== BUBBLES ===== */
 function launchBubbles(n){
   for(let i=0;i<n;i++){
+    const delay = i * (300 + Math.random()*300);
+
     setTimeout(()=>{
-      const b=document.createElement("div");
-      b.className="bubble";
-      b.style.left=Math.random()*100+"vw";
+      const b = document.createElement("div");
+      b.className = "bubble";
+
+      // ukuran random
+      const size = 12 + Math.random()*20; // kecil → besar
+      b.style.width = size + "px";
+      b.style.height = size + "px";
+
+      // posisi random
+      b.style.left = Math.random()*90 + "vw";
+
+      // durasi naik random (natural)
+      const duration = 3 + Math.random()*2; // 3–5 detik
+      b.style.animationDuration = duration + "s";
+
       document.body.appendChild(b);
 
+      // POP PAS PECAH
       setTimeout(()=>{
-        document.getElementById("popSound").cloneNode().play();
+        const pop = document.getElementById("popSound").cloneNode();
+        pop.volume = 0.6;
+        pop.play();
         b.remove();
-      },3500);
-    },i*350);
+      }, duration * 1000);
+
+    }, delay);
   }
 }
 </script>
