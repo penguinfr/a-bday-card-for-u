@@ -31,29 +31,21 @@ body{
   left:8%;
   max-width:320px;
   color:#fff;
-  z-index:2;
 }
 .hero-text h1{
   font-size:28px;
   line-height:1.4;
   margin:0;
-  text-shadow:0 4px 12px rgba(0,0,0,.35);
 }
 .hero-text p{
   margin-top:14px;
   font-size:14px;
-  opacity:.9;
 }
 
 /* ===== ICON SECTION ===== */
 .section{
   margin:-60px 20px 40px;
   text-align:center;
-}
-.section h2{
-  font-size:18px;
-  margin-bottom:20px;
-  font-weight:500;
 }
 .icon-grid{
   display:grid;
@@ -66,11 +58,9 @@ body{
   padding:22px 10px;
   box-shadow:0 12px 25px rgba(255,182,193,.35);
   cursor:pointer;
-  transition:.25s;
 }
-.icon-card:hover{transform:translateY(-4px);}
 .icon-card img{width:42px;margin-bottom:10px;}
-.icon-card p{font-size:13px;margin:0;opacity:.85}
+.icon-card p{font-size:13px;margin:0;}
 
 /* ===== FULL PAGE ===== */
 .page{
@@ -82,7 +72,6 @@ body{
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  padding:20px;
 }
 .page.active{display:flex;}
 .back{
@@ -92,8 +81,6 @@ body{
   background:#fff;
   padding:8px 14px;
   border-radius:999px;
-  font-size:13px;
-  box-shadow:0 6px 15px rgba(0,0,0,.15);
   cursor:pointer;
 }
 
@@ -102,48 +89,61 @@ body{
   display:flex;
   flex-direction:column;
   align-items:center;
-  text-align:center;
 }
-
 .music-box img{
   width:180px;
   border-radius:16px;
   margin-bottom:16px;
 }
-
 .music-box a{
-  text-decoration:none;
   background:#ffd6e3;
-  padding:10px 20px;
+  padding:10px 22px;
   border-radius:999px;
-  font-size:13px;
+  text-decoration:none;
   color:#444;
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
 }
 
-
-/* ===== POLAROID ===== */
+/* ===== MEMORIES ===== */
 .polaroid-wrapper{
   width:260px;
   height:320px;
-  position:relative;
 }
 .polaroid{
   position:absolute;
   inset:0;
   background:#fff;
-  border-radius:10px;
   padding:10px 10px 30px;
-  box-shadow:0 15px 30px rgba(0,0,0,.15);
-  cursor:pointer;
+  border-radius:10px;
 }
 .polaroid img{
   width:100%;
   height:220px;
   object-fit:cover;
-  border-radius:6px;
+}
+
+/* ===== GAME ===== */
+.game-grid{
+  display:grid;
+  grid-template-columns:repeat(3,80px);
+  gap:14px;
+}
+.game-card{
+  width:80px;
+  height:80px;
+  background:#fff;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 8px 20px rgba(255,182,193,.4);
+  cursor:pointer;
+}
+.game-card img{
+  width:46px;
+  display:none;
+}
+.game-card.active img{
+  display:block;
 }
 </style>
 </head>
@@ -156,79 +156,64 @@ body{
     <div class="hero-overlay"></div>
     <div class="hero-text">
       <h1>Happy birthday, love!<br>Made this especially for you ✧</h1>
-      <p>January 1st’s own special one</p>
+      <p>a very special January 1st person</p>
     </div>
   </div>
 
   <div class="section">
-    <h2>for you 🤍</h2>
     <div class="icon-grid">
 
       <div class="icon-card" onclick="openPage('musicPage')">
-        <img src="icons/music.png">
-        <p>tap for music</p>
+        <img src="icons/music.png"><p>tap for music</p>
       </div>
 
       <div class="icon-card" onclick="openPage('memoriesPage')">
-        <img src="icons/camera.png">
-        <p>our memories</p>
+        <img src="icons/camera.png"><p>our memories</p>
+      </div>
+
+      <div class="icon-card" onclick="openPage('gamePage')">
+        <img src="game/1.png"><p>a little game</p>
       </div>
 
       <div class="icon-card">
-        <img src="icons/game.png">
-        <p>a little game</p>
-      </div>
-
-      <div class="icon-card">
-        <img src="icons/letter.png">
-        <p>open the letter</p>
+        <img src="icons/letter.png"><p>open the letter</p>
       </div>
 
     </div>
   </div>
 </div>
 
-<!-- MUSIC PAGE -->
+<!-- MUSIC -->
 <div id="musicPage" class="page">
   <div class="back" onclick="closePage()">← back</div>
   <div class="music-box">
     <img src="playlist.png">
-    <a href="https://open.spotify.com/playlist/17dKleqnuTkZF7s98xoEVy?si=4d5a0d0e36924f30" target="_blank">
+    <a href="https://open.spotify.com/playlist/17dKleqnuTkZF7s98xoEVy" target="_blank">
       open playlist 🎧
     </a>
   </div>
 </div>
 
-<!-- ===== MEMORIES PAGE ===== -->
+<!-- MEMORIES -->
 <div id="memoriesPage" class="page">
   <div class="back" onclick="closePage()">← back</div>
-
   <div class="polaroid-wrapper" onclick="nextPhoto()">
     <div class="polaroid"><img src="photos/1.png"></div>
     <div class="polaroid"><img src="photos/2.png"></div>
     <div class="polaroid"><img src="photos/3.png"></div>
-    <div class="polaroid"><img src="photos/4.png"></div>
-    <div class="polaroid"><img src="photos/5.png"></div>
-    <div class="polaroid"><img src="photos/6.png"></div>
-    <div class="polaroid"><img src="photos/7.png"></div>
-    <div class="polaroid"><img src="photos/8.png"></div>
-    <div class="polaroid"><img src="photos/10.png"></div>
-    <div class="polaroid"><img src="photos/9.png"></div>
   </div>
-
-  <p style="margin-top:14px;font-size:12px;opacity:.7">
-    tap the photo 🤍
-  </p>
 </div>
 
-<audio id="bgm" src="bgm.mp3" loop></audio>
+<!-- GAME -->
+<div id="gamePage" class="page">
+  <div class="back" onclick="closePage()">← back</div>
+  <h3>match the icons 🤍</h3>
+  <div class="game-grid" id="gameGrid"></div>
+</div>
 
 <script>
 function openPage(id){
   document.getElementById(id).classList.add("active");
-  if(id==="musicPage"){
-    document.getElementById("bgm").play();
-  }
 }
 function closePage(){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
@@ -237,6 +222,35 @@ function nextPhoto(){
   const w=document.querySelector(".polaroid-wrapper");
   w.appendChild(w.firstElementChild);
 }
+
+/* GAME LOGIC */
+const icons=["1","2","3","4","5","6"];
+let cards=[...icons,...icons].sort(()=>0.5-Math.random());
+let first=null;
+
+const grid=document.getElementById("gameGrid");
+cards.forEach(i=>{
+  const c=document.createElement("div");
+  c.className="game-card";
+  c.innerHTML=`<img src="game/${i}.png">`;
+  c.onclick=()=>{
+    if(c.classList.contains("active"))return;
+    c.classList.add("active");
+    if(!first){first=c;}
+    else{
+      if(first.innerHTML!==c.innerHTML){
+        setTimeout(()=>{
+          first.classList.remove("active");
+          c.classList.remove("active");
+          first=null;
+        },600);
+      }else{
+        first=null;
+      }
+    }
+  }
+  grid.appendChild(c);
+});
 </script>
 
 </body>
