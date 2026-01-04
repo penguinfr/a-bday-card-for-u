@@ -150,27 +150,60 @@ body{
 /* ===== GAME ===== */
 .game-grid{
   display:grid;
-  grid-template-columns:repeat(3,80px);
-  gap:14px;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  max-width:300px;
 }
+
 .game-card{
-  width:80px;
-  height:80px;
   background:#fff;
-  border-radius:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 8px 20px rgba(255,182,193,.4);
+  border-radius:14px;
+  padding:8px;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
   cursor:pointer;
 }
+
 .game-card img{
-  width:46px;
+  width:100%;
+  border-radius:10px;
+}
+
+/* ===== FINISH ===== */
+.finish{
   display:none;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
 }
-.game-card.active img{
-  display:block;
+
+.finish img{
+  width:200px;
+  border-radius:16px;
+  margin-bottom:16px;
 }
+
+.typing{
+  font-size:14px;
+  line-height:1.6;
+  white-space:pre-line;
+}
+
+/* ===== BUBBLES ===== */
+.bubble{
+  position:absolute;
+  width:14px;
+  height:14px;
+  background:rgba(255,182,193,.8);
+  border-radius:50%;
+  animation:pop .6s forwards;
+}
+
+@keyframes pop{
+  0%{transform:scale(0)}
+  80%{transform:scale(1.3)}
+  100%{transform:scale(0);opacity:0}
+}
+
 </style>
 </head>
 
@@ -200,7 +233,7 @@ body{
         <p>our memories</p>
       </div>
 
-      <div class="icon-card" onclick="openPage('gamePage')">
+      <div class="icon-card" onclick="openGame()">
         <img src="icons/fun.png">
         <p>a little game</p>
       </div>
@@ -247,12 +280,21 @@ body{
   </p>
 </div>
 
-<!-- GAME -->
+<!-- ===== GAME PAGE ===== -->
 <div id="gamePage" class="page">
   <div class="back" onclick="closePage()">← back</div>
-  <h3>match the icons 🤍</h3>
-  <div class="game-grid" id="gameGrid"></div>
+
+  <div id="gameArea" class="game-grid"></div>
+
+  <!-- FINISH -->
+  <div id="finish" class="finish">
+    <img src="finish/finish.png">
+    <div id="typing" class="typing"></div>
+  </div>
 </div>
+
+<audio id="popSound" src="game/pop.mp3"></audio>
+
 
 <audio id="bgm" src="bgm.mp3" loop></audio>
 
@@ -270,34 +312,98 @@ function nextPhoto(){
   const w=document.querySelector(".polaroid-wrapper");
   w.appendChild(w.firstElementChild);
 }
-/* GAME LOGIC */
-const icons=["1","2","3","4","5","6"];
-let cards=[...icons,...icons].sort(()=>0.5-Math.random());
-let first=null;
+/* ===== GAME LOGIC ===== */
+const images=[
+  "game/1.png","game/1.png",
+  "game/2.png","game/2.png",
+  "game/3.png","game/3.png"
+];
 
-const grid=document.getElementById("gameGrid");
-cards.forEach(i=>{
-  const c=document.createElement("div");
-  c.className="game-card";
-  c.innerHTML=`<img src="game/${i}.png">`;
-  c.onclick=()=>{
-    if(c.classList.contains("active"))return;
-    c.classList.add("active");
-    if(!first){first=c;}
-    else{
-      if(first.innerHTML!==c.innerHTML){
-        setTimeout(()=>{
-          first.classList.remove("active");
-          c.classList.remove("active");
-          first=null;
-        },600);
-      }else{
+let first=null, lock=false, matched=0;
+
+function openGame(){
+  openPage("gamePage");
+  setupGame();
+}
+
+function setupGame(){
+  matched=0;
+  first=null;
+  document.getElementById("finish").style.display="none";
+
+  const area=document.getElementById("gameArea");
+  area.innerHTML="";
+  images.sort(()=>0.5-Math.random());
+
+  images.forEach(src=>{
+    const card=document.createElement("div");
+    card.className="game-card";
+    card.innerHTML=`<img src="${src}" style="display:none">`;
+    card.onclick=()=>flip(card);
+    area.appendChild(card);
+  });
+}
+
+function flip(card){
+  if(lock || card===first || card.classList.contains("done"))return;
+
+  card.querySelector("img").style.display="block";
+
+  if(!first){
+    first=card;
+  }else{
+    lock=true;
+    if(first.querySelector("img").src===card.querySelector("img").src){
+      first.classList.add("done");
+      card.classList.add("done");
+      matched+=2;
+      first=null;
+      lock=false;
+      if(matched===images.length)finishGame();
+    }else{
+      setTimeout(()=>{
+        first.querySelector("img").style.display="none";
+        card.querySelector("img").style.display="none";
         first=null;
-      }
+        lock=false;
+      },700);
     }
   }
-  grid.appendChild(c);
-});
+}
+
+/* ===== FINISH EFFECT ===== */
+function finishGame(){
+  popBubbles();
+  document.getElementById("gameArea").style.display="none";
+  const finish=document.getElementById("finish");
+  finish.style.display="flex";
+  typeText("yay! you matched everything ♡\ngreat job owiiy ^•-•^");
+}
+
+function popBubbles(){
+  const sound=document.getElementById("popSound");
+  for(let i=0;i<20;i++){
+    const b=document.createElement("div");
+    b.className="bubble";
+    b.style.left=Math.random()*100+"%";
+    b.style.top=Math.random()*100+"%";
+    document.body.appendChild(b);
+    sound.currentTime=0;
+    sound.play();
+    setTimeout(()=>b.remove(),600);
+  }
+}
+
+function typeText(text){
+  let i=0;
+  const el=document.getElementById("typing");
+  el.innerHTML="";
+  const interval=setInterval(()=>{
+    el.innerHTML+=text[i];
+    i++;
+    if(i>=text.length)clearInterval(interval);
+  },50);
+}
 </script>
 
 </body>
