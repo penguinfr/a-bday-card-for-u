@@ -183,18 +183,14 @@ body{
 /* ===== FINISH CARD ===== */
 .finish-card{
   display:none;
-  position:absolute;
+  position:fixed;
   inset:0;
   background:rgba(255,245,248,.92);
-  z-index:150;
-
-  display:flex;
-  flex-direction:column;
+  z-index:200;
   align-items:center;
   justify-content:center;
-
-  padding:20px;
 }
+
 .finish-card img{
   width:100%;
   border-radius:12px;
@@ -335,8 +331,33 @@ function closePage(){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
 }
 function openGame(){
-  openPage('gamePage');
+  document.getElementById("gamePage").classList.add("active");
+
+  // reset game state
+  matched = 0;
+  first = null;
+  second = null;
+  lock = false;
+
+  // bersihkan grid
+  grid.innerHTML = "";
+
+  // sembunyikan finish card
+  document.getElementById("finishCard").style.display = "none";
+  document.getElementById("finishText").textContent = "";
+
+  // shuffle ulang
+  shuffle(cards);
+
+  cards.forEach(src=>{
+    const c=document.createElement("div");
+    c.className="card";
+    c.innerHTML=`<img src="${src}">`;
+    c.onclick=()=>flip(c,src);
+    grid.appendChild(c);
+  });
 }
+
 
 /* ===== MEMORIES ===== */
 function nextPhoto(){
