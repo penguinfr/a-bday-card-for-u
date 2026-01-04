@@ -259,13 +259,27 @@ body{
 
 .letter-paper{
   position:relative;
-  background:#ffd0df;
   width:320px;
   max-height:75vh;
-  padding:28px 22px;
-  box-shadow:0 18px 40px rgba(0,0,0,.25);
+  padding:28px 24px 34px;
+
+  background:
+    linear-gradient(180deg, #ffd4e2 0%, #ffc8da 100%);
+
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.22),
+    inset 0 0 0 1.5px rgba(255,255,255,.55);
+
   overflow-y:auto;
   display:none;
+  border-radius:6px;
+}
+.letter-paper::-webkit-scrollbar{
+  width:6px;
+}
+.letter-paper::-webkit-scrollbar-thumb{
+  background:rgba(255,255,255,.45);
+  border-radius:10px;
 }
 
 .letter-paper h2{
@@ -290,14 +304,11 @@ body{
 @keyframes fadeIn{
   to{opacity:1}
 }
-
-.letter-flower{
-  position:absolute;
-  right:-20px;
-  bottom:-60px;
-  width:120px;
-  transform:rotate(-12deg);
-  pointer-events:none;
+.letter-end{
+  text-align:center;
+  margin-top:14px;
+  font-size:20px;
+  opacity:.6;
 }
 
 </style>
@@ -406,7 +417,6 @@ body{
 
   <!-- SURAT -->
   <div class="letter-paper" id="letterPaper">
-    <img src="letters/flower.png" class="letter-flower">
 
     <h2>Happy Birthdayy, ill ˙⋆✮</h2>
 
@@ -423,6 +433,8 @@ body{
 
     <p>always cheering for u,<br>
     pingu 𖹭</p>
+
+    <div class="letter-end">♡</div>
   </div>
 </div>
 
@@ -622,9 +634,9 @@ function openLetter(){
       if(charIndex >= text.length){
         clearInterval(typing);
         pIndex++;
-        setTimeout(typeParagraph, 400); // jeda antar paragraf
+        setTimeout(typeParagraph, 500); // jeda antar paragraf
       }
-    }, 25); // kecepatan ketik
+    }, 22); // kecepatan ketik
   }
 
   typeParagraph();
